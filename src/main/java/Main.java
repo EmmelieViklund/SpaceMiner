@@ -6,13 +6,23 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
 
-
     }
 
     static void playGame() throws IOException {
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-        Terminal terminal = terminalFactory.createTerminal();
 
+        Terminal terminal = terminalBuilder();
+    }
+
+    static Terminal terminalBuilder() {
+
+        try {
+            DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
+            Terminal terminal = terminalFactory.createTerminal();
+            return terminal;
+        } catch (IOException e) {
+            System.out.println(e.getStackTrace());
+            return null;
+        }
 
     }
 
