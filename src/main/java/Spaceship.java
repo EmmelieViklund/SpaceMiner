@@ -30,7 +30,8 @@ public class Spaceship {
         }
 
     }
-}
+        return null;
+    }
 
 
 }
