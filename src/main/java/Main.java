@@ -36,6 +36,15 @@ public class Main {
 
             spaceship.movePlayer(type);
 
+            if (spaceship.movePlayer(type) != null) {
+                spaceship.playerPosition.setX(spaceship.movePlayer(type).getX());
+
+            }
+
+            terminal.setCursorPosition(spaceship.playerPosition.getX(),spaceship.playerPosition.getY());
+            terminal.putCharacter(spaceship.playerChar);
+            terminal.flush();
+
         }
     }
 
