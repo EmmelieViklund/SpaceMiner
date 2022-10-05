@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        System.out.println("eh... djo");
+        System.out.println("Felix är häst");
     }
 
 }
