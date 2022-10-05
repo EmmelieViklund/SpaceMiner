@@ -1,0 +1,25 @@
+Astroid:
+Form
+Metod som sakpar nya astroider
+
+
+Rymdskepp (Spelaren):
+Form
+Metod för att flytta på sig
+Metod för att laser
+
+Spel:
+WhileLoop - under hela spelets gång
+ - innehålla alla regler
+- antal astrodier
+- snabbhet
+ - int level
+- poängräknare
+-Spelplan (gränser, storlek)
+-Tid
+
+
+
+Eventeulla:
+Dekoration
+Ljud
