@@ -10,13 +10,13 @@ Metod för att laser
 
 Spel:
 WhileLoop - under hela spelets gång
- - innehålla alla regler
-- antal astrodier
-- snabbhet
- - int level
-- poängräknare
--Spelplan (gränser, storlek)
--Tid
+-   innehålla alla regler
+-   antal astrodier
+-   snabbhet
+-   int level
+-   poängräknare
+-   Spelplan (gränser, storlek)
+-   Tid
 
 
 
