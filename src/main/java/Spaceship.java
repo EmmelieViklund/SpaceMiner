@@ -6,8 +6,9 @@ import com.googlecode.lanterna.terminal.Terminal;
 import java.util.List;
 
 public class Spaceship {
-    final char playerChar = 'O';
+    final char playerChar = '\u261D';
     final char verticalLine = '\u007C';
+
 
     Position playerPosition;
 
