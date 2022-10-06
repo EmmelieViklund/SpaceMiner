@@ -3,12 +3,12 @@ import Posistion.Position;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Asteroids {
+public class Asteroid {
 
     ArrayList<Position> positions;
     final char block= 9608;
     int size;
-    public Asteroids() {
+    public Asteroid() {
         Random random = new Random();
         int i = random.nextInt(0, 10);
         switch(i){

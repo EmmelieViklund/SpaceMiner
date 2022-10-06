@@ -3,7 +3,6 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.io.IOException;
 import java.util.List;
 
 public class Spaceship {
@@ -17,6 +16,8 @@ public class Spaceship {
     }
 
     public void movePlayer(Terminal terminal, KeyStroke keyStroke) throws Exception {
+        KeyType type = keyStroke.getKeyType();
+        int oldX = playerPosition.getX(), oldY = playerPosition.getY();
 
         switch (keyStroke.getKeyType()) {
 
@@ -34,12 +35,14 @@ public class Spaceship {
         }
         terminal.setCursorPosition(playerPosition.getX(), playerPosition.getY());
         terminal.putCharacter(playerChar);
+        terminal.setCursorPosition(oldX, oldY);
+        terminal.putCharacter(' ');
         terminal.flush();
 
     }
 
 
-    public void fire(Terminal terminal, KeyStroke keyStroke, List<Asteroids> asteroids) throws Exception {
+    public void fire(Terminal terminal, KeyStroke keyStroke, List<Asteroid> asteroids) throws Exception {
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') {
             int y = playerPosition.getY()-1;
             while (true) {

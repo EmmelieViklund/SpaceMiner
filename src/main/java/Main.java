@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Collections.emptyList;
-
 public class Main {
     public Main() {
     }
@@ -25,7 +23,7 @@ public class Main {
         int score = 0;
         KeyStroke keyStroke;
 
-        Spaceship spaceship = new Spaceship(new Position(30, 39));
+        Spaceship spaceship = new Spaceship(new Position(30, 37));
         terminal.setCursorPosition(spaceship.playerPosition.getX(), spaceship.playerPosition.getY());
         terminal.putCharacter(spaceship.playerChar);
         terminal.flush();
@@ -37,7 +35,7 @@ public class Main {
 
             } while (keyStroke == null);
 
-            List<Asteroids> asteroids = new ArrayList<Asteroids>();
+            List<Asteroid> asteroids = new ArrayList<Asteroid>();
             spaceship.movePlayer(terminal, keyStroke);
             spaceship.fire(terminal, keyStroke, asteroids);
             //moveAstroids
@@ -48,7 +46,7 @@ public class Main {
 
     static Terminal terminalBuilder() {
         try {
-            TerminalSize ts = new TerminalSize(60, 40);
+            TerminalSize ts = new TerminalSize(60, 38);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             terminalFactory.setInitialTerminalSize(ts);
             Terminal terminal = terminalFactory.createTerminal();
