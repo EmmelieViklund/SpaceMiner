@@ -24,6 +24,8 @@ public class Main {
         KeyStroke keyStroke;
 
         Spaceship spaceship = new Spaceship(new Position(30, 37));
+        Asteroid asteroid = new Asteroid(new Position(15,10));
+        terminal.setCursorPosition(asteroid.playerPosition.getX, asteroid.playerPosstion.getY());
         terminal.setCursorPosition(spaceship.playerPosition.getX(), spaceship.playerPosition.getY());
         terminal.putCharacter(spaceship.playerChar);
         terminal.flush();

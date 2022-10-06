@@ -5,10 +5,12 @@ import java.util.Random;
 
 public class Asteroid {
 
-    ArrayList<Position> positions;
+    ArrayList<Asteroid> asteroids;
     final char block= 9608;
     int size;
-    public Asteroid() {
+
+
+    public Asteroid(Position position) {
         Random random = new Random();
         int i = random.nextInt(0, 10);
         switch(i){
@@ -27,4 +29,5 @@ public class Asteroid {
         }
 
     }
+
 }

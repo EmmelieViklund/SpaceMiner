@@ -45,7 +45,7 @@ public class Spaceship {
 
     public void fire(Terminal terminal, KeyStroke keyStroke, List<Asteroid> asteroids) throws Exception {
         if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') {
-            int y = playerPosition.getY()-1;
+            int y = playerPosition.getY();
             while (true) {
                 y--;
                 if (y < 0) {
