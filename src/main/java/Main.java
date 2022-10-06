@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public Main() {
-    }
-
     public static void main(String[] args) throws Exception {
         playGame();
     }
@@ -39,8 +36,6 @@ public class Main {
             spaceship.movePlayer(terminal, keyStroke);
             spaceship.fire(terminal, keyStroke, asteroids);
             //moveAstroids
-
-
         }
     }
 
@@ -52,8 +47,8 @@ public class Main {
             Terminal terminal = terminalFactory.createTerminal();
             terminal.setCursorVisible(false);
             return terminal;
-        } catch (IOException var3) {
-            System.out.println(var3.getStackTrace());
+        } catch (IOException e) {
+            System.out.println(e.getStackTrace());
             return null;
         }
     }

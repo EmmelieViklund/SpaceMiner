@@ -17,7 +17,6 @@ public class Spaceship {
     }
 
     public void movePlayer(Terminal terminal, KeyStroke keyStroke) throws Exception {
-        KeyType type = keyStroke.getKeyType();
         int oldX = playerPosition.getX(), oldY = playerPosition.getY();
 
         switch (keyStroke.getKeyType()) {
