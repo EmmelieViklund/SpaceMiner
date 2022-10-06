@@ -1,13 +1,14 @@
 import Posistion.Position;
-import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.Terminal;
 
-import java.security.Key;
+import java.io.IOException;
+import java.util.List;
 
 public class Spaceship {
-    final char playerChar = '\u0020';
+    final char playerChar = 'O';
+    final char verticalLine = '\u007C';
 
     Position playerPosition;
 
@@ -15,24 +16,48 @@ public class Spaceship {
         this.playerPosition = playerPosition;
     }
 
-    public Position movePlayer (KeyType direction) {
+    public void movePlayer(Terminal terminal, KeyStroke keyStroke) throws Exception {
 
-   switch (direction) {
+        switch (keyStroke.getKeyType()) {
 
-       case ArrowLeft-> {
-            this.playerPosition.setX(playerPosition.getX() - 1);
-            return this.playerPosition;
+            case ArrowLeft -> {
+                if (playerPosition.getX() > 0) {
+                    this.playerPosition.setX(playerPosition.getX() - 1);
+                }
+            }
+
+            case ArrowRight -> {
+                if (playerPosition.getX() < 57) {
+                    this.playerPosition.setX(playerPosition.getX() + 1);
+                }
+            }
         }
-
-        case ArrowRight -> {
-            this.playerPosition.setX(playerPosition.getX() + 1);
-            return this.playerPosition;
-        }
+        terminal.setCursorPosition(playerPosition.getX(), playerPosition.getY());
+        terminal.putCharacter(playerChar);
+        terminal.flush();
 
     }
-        return null;
+
+
+    public void fire(Terminal terminal, KeyStroke keyStroke, List<Asteroids> asteroids) throws Exception {
+        if (keyStroke.getKeyType() == KeyType.Character && keyStroke.getCharacter() == ' ') {
+            int y = playerPosition.getY()-1;
+            while (true) {
+                y--;
+                if (y < 0) {
+                    break;
+                }
+                terminal.setCursorPosition(playerPosition.getX(), y);
+                terminal.putCharacter(verticalLine);
+                terminal.flush();
+            }
+            Thread.sleep(50);
+            for (int i = y; i < playerPosition.getY(); i++) {
+                terminal.setCursorPosition(playerPosition.getX(), i);
+                terminal.putCharacter(' ');
+                terminal.flush();
+            }
+        }
     }
-
-
 }
 
