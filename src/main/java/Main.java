@@ -21,11 +21,18 @@ public class Main {
         KeyStroke keyStroke;
 
         Spaceship spaceship = new Spaceship(new Position(30, 37));
-        Asteroid asteroid = new Asteroid(new Position(15,10));
-        terminal.setCursorPosition(asteroid.playerPosition.getX, asteroid.playerPosstion.getY());
+        List<Asteroid> asteroids = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Asteroid asteroid = new Asteroid();
+            asteroids.add(asteroid);
+            terminal.setCursorPosition(asteroid.asteroidPosition.getX(), asteroid.asteroidPosition.getY());
+            terminal.putCharacter((asteroid.block));
+        }
+
         terminal.setCursorPosition(spaceship.playerPosition.getX(), spaceship.playerPosition.getY());
         terminal.putCharacter(spaceship.playerChar);
         terminal.flush();
+
 
         while (!isDead) {
             do {
@@ -34,7 +41,7 @@ public class Main {
 
             } while (keyStroke == null);
 
-            List<Asteroid> asteroids = new ArrayList<Asteroid>();
+
             spaceship.movePlayer(terminal, keyStroke);
             spaceship.fire(terminal, keyStroke, asteroids);
             //moveAstroids
