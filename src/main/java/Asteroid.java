@@ -1,6 +1,8 @@
 import Posistion.Position;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.input.KeyType;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -39,7 +41,6 @@ public class Asteroid {
                 size = 5;
             }
         }
-
     }
 
     public void moveAsteroid(Terminal terminal, KeyStroke keyStroke) throws Exception {
