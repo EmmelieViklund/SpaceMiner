@@ -23,6 +23,8 @@ public class Asteroid {
 
     public Asteroid() {
         Random random = new Random();
+        blockPositions = new ArrayList<>();
+
         int r1 = random.nextInt(0, 10);
         switch (r1) {
             case 0, 1, 2 -> {
@@ -39,8 +41,10 @@ public class Asteroid {
             }
         }
         int r2 = random.nextInt(0, 60 - size);
+        blockPositions.add(new Position(r2, 0));
+
         for (int i = 0; i < size; i++) {
-            for (int j = 0 + r2; j < size + r2; j++) {
+            for (int j = r2; j < size + r2; j++) {
                 this.blockPositions.add(new Position(i, j));
             }
         }

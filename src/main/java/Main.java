@@ -21,17 +21,19 @@ public class Main {
         KeyStroke keyStroke;
 
         Spaceship spaceship = new Spaceship(new Position(30, 37));
-        List<Asteroid> asteroids = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Asteroid asteroid = new Asteroid();
-            asteroids.add(asteroid);
-            terminal.setCursorPosition(asteroid.blockPositions.get(i).getX(), asteroid.blockPositions.get(i).getY());
-            terminal.putCharacter((asteroid.block));
-        }
-
         terminal.setCursorPosition(spaceship.playerPosition.getX(), spaceship.playerPosition.getY());
         terminal.putCharacter(spaceship.playerChar);
         terminal.flush();
+
+        List<Asteroid> asteroids = new ArrayList<>();
+//        for (int i = 0; i < asteroids.size(); i++) {
+//            Asteroid asteroid = new Asteroid();
+//            asteroids.add(asteroid);
+//            terminal.setCursorPosition(asteroid.blockPositions.get(i).getX(), asteroid.blockPositions.get(i).getY());
+//            terminal.putCharacter((asteroid.block));
+//        }
+
+
 
         int speed = 100;
         while (!isDead) {
@@ -39,6 +41,9 @@ public class Main {
             do {
                 Thread.sleep(5);
                 keyStroke = terminal.pollInput();
+                if (counter % 500 == 0) {
+                    asteroids.add(new Asteroid());
+                }
                 if(counter % speed == 0) {
                     for (Asteroid a : asteroids) {
                         ArrayList<Position> oldPositions = new ArrayList<>(a.blockPositions);
@@ -51,7 +56,9 @@ public class Main {
                             terminal.setCursorPosition(a.blockPositions.get(i).getX(), a.blockPositions.get(i).getY());
                             terminal.putCharacter(a.block);
                         }
+
                     }
+                    terminal.flush();
                 }
                 counter++;
             } while (keyStroke == null);
