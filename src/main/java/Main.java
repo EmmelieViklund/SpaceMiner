@@ -28,22 +28,17 @@ public class Main {
 
 
         List<Asteroid> asteroids = new ArrayList<>();
-//        for (int i = 0; i < asteroids.size(); i++) {
-//            Asteroid asteroid = new Asteroid();
-//            asteroids.add(asteroid);
-//            terminal.setCursorPosition(asteroid.blockPositions.get(i).getX(), asteroid.blockPositions.get(i).getY());
-//            terminal.putCharacter((asteroid.block));
-//        }
-
-
         int speed = 200;
-        int spawnSpeed = 500;
+        int spawnSpeed = 400   ;
+        long counter = 0;
         while (!isDead) {
-            int counter = 0;
             do {
                 Thread.sleep(5);
                 keyStroke = terminal.pollInput();
                 if (counter % spawnSpeed == 0) {
+                    asteroids.add(new Asteroid());
+                }
+                if (asteroids.size() == 0) {
                     asteroids.add(new Asteroid());
                 }
                 if (counter % speed == 0) {
@@ -90,7 +85,7 @@ public class Main {
                 terminal.setCursorPosition((60 - scoreString.length()) + i, 0);
                 terminal.putCharacter(scoreString.charAt(i));
             }
-            if (score % 10 == 0) {
+            if (score % 10 == 0 && score > 1) {
                 speed -=5;
                 if (speed < 1) {
                     speed = 1;

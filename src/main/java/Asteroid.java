@@ -6,6 +6,7 @@ import com.googlecode.lanterna.input.KeyType;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Asteroid {
 
@@ -22,10 +23,9 @@ public class Asteroid {
     }
 
     public Asteroid() {
-        Random random = new Random();
         this.blockPositions = new ArrayList<>();
 
-        int r1 = random.nextInt(0, 10);
+        int r1 = ThreadLocalRandom.current().nextInt(0, 10);
         switch (r1) {
             case 0 -> {
                 size = 1;
@@ -43,11 +43,11 @@ public class Asteroid {
                 size = 5;
             }
         }
-        int r2 = random.nextInt(0, 60 - size);
+        int r2 = ThreadLocalRandom.current().nextInt(0, 59 - size);
 
         for (int i = 1; i < size + 1; i++) {
-            for (int j = r2; j < (size) + r2; j++) {
-                this.blockPositions.add(new Position(j + r2, i));
+            for (int j = r2; j < size + r2; j++) {
+                this.blockPositions.add(new Position(j, i));
             }
         }
     }
