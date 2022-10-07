@@ -1,6 +1,7 @@
 import Posistion.Position;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
@@ -35,30 +36,26 @@ public class Main {
 //        }
 
 
-
-        int speed = 100;
+        int speed = 200;
+        int spawnSpeed = 500;
         while (!isDead) {
             int counter = 0;
             do {
                 Thread.sleep(5);
                 keyStroke = terminal.pollInput();
-                if (counter % 500 == 0) {
+                if (counter % spawnSpeed == 0) {
                     asteroids.add(new Asteroid());
                 }
-
-
-
-                if(counter % speed == 0) {
+                if (counter % speed == 0) {
                     for (int i = 0; i < asteroids.size(); i++) {
                         ArrayList<Position> oldPositions = new ArrayList<>();
                         for (int j = 0; j < asteroids.get(i).blockPositions.size(); j++) {
-                            oldPositions.add(new Position(asteroids.get(i).blockPositions.get(j).getX(),asteroids.get(i).blockPositions.get(j).getY()));
+                            oldPositions.add(new Position(asteroids.get(i).blockPositions.get(j).getX(), asteroids.get(i).blockPositions.get(j).getY()));
                         }
                         asteroids.get(i).moveAsteroid();
                         for (int j = 0; j < oldPositions.size(); j++) {
                             terminal.setCursorPosition(oldPositions.get(j).getX(), oldPositions.get(j).getY());
                             terminal.putCharacter(' ');
-
                         }
                         for (int j = 0; j < asteroids.get(i).blockPositions.size(); j++) {
                             terminal.setCursorPosition(asteroids.get(i).blockPositions.get(j).getX(), asteroids.get(i).blockPositions.get(j).getY());
@@ -71,28 +68,47 @@ public class Main {
                             }
                             asteroids.remove(asteroids.get(i));
                         }
+                        isDead = deadCheck(asteroids, spaceship.playerPosition);
                     }
                     terminal.flush();
                 }
                 counter++;
             } while (keyStroke == null);
 
+            KeyType type = keyStroke.getKeyType();
 
-            spaceship.movePlayer(terminal, keyStroke);
-            spaceship.fire(terminal, keyStroke, asteroids);
+            if (type == KeyType.ArrowLeft || type == KeyType.ArrowRight) {
+                spaceship.movePlayer(terminal, type);
+            } else if (type == KeyType.Character && keyStroke.getCharacter() == ' ') {
+                score += spaceship.fire(terminal, asteroids);
+            } else if (type == KeyType.Character && keyStroke.getCharacter() == 'q') {
+                handleGameQuit(terminal, keyStroke.getCharacter());
+            }
 
-
+            String scoreString = String.format("Score: %04d", score);
+            for (int i = 0; i < scoreString.length(); i++) {
+                terminal.setCursorPosition((60 - scoreString.length()) + i, 0);
+                terminal.putCharacter(scoreString.charAt(i));
+            }
+            if (score % 10 == 0) {
+                speed -=5;
+                if (speed < 1) {
+                    speed = 1;
+                }
+                spawnSpeed -= 10;
+                if (spawnSpeed < 1) {
+                    spawnSpeed = 1;
+                }
+            }
         }
-
+        terminal.close();
     }
 
-    private static boolean handleGameQuit(boolean continueReadingInput, Character c) throws Exception {
+    private static void handleGameQuit(Terminal terminal, Character c) throws Exception {
         if (c == Character.valueOf('q')) {
-            continueReadingInput = false;
-            terminalBuilder().close();
+            terminal.close();
             System.out.println("quit");
         }
-        return continueReadingInput;
     }
 
     static Terminal terminalBuilder() {
@@ -107,5 +123,15 @@ public class Main {
             System.out.println(e.getStackTrace());
             return null;
         }
+    }
+    static boolean deadCheck(List<Asteroid> asteroids, Position p) {
+        for (Asteroid a : asteroids) {
+            for (int i = 0; i < a.blockPositions.size(); i++) {
+                if (a.blockPositions.get(i).equals(p)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

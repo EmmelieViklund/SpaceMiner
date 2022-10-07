@@ -27,22 +27,25 @@ public class Asteroid {
 
         int r1 = random.nextInt(0, 10);
         switch (r1) {
-            case 0, 1, 2 -> {
-                size = 2;
-            }
-            case 3, 4, 5 -> {
-                size = 3;
-            }
-            case 6, 7 -> {
+            case 0 -> {
                 size = 1;
             }
-            case 8, 9 -> {
+            case 1, 2, 3 -> {
+                size = 2;
+            }
+            case 4, 5, 6 -> {
+                size = 3;
+            }
+            case 7, 8 -> {
+                size = 4;
+            }
+            case 9 -> {
                 size = 5;
             }
         }
         int r2 = random.nextInt(0, 60 - size);
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 1; i < size + 1; i++) {
             for (int j = r2; j < (size) + r2; j++) {
                 this.blockPositions.add(new Position(j + r2, i));
             }
