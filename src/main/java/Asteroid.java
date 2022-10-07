@@ -23,7 +23,7 @@ public class Asteroid {
 
     public Asteroid() {
         Random random = new Random();
-        blockPositions = new ArrayList<>();
+        this.blockPositions = new ArrayList<>();
 
         int r1 = random.nextInt(0, 10);
         switch (r1) {
@@ -41,18 +41,18 @@ public class Asteroid {
             }
         }
         int r2 = random.nextInt(0, 60 - size);
-        blockPositions.add(new Position(r2, 0));
 
         for (int i = 0; i < size; i++) {
-            for (int j = r2; j < size + r2; j++) {
-                this.blockPositions.add(new Position(i, j));
+            for (int j = r2; j < (size) + r2; j++) {
+                this.blockPositions.add(new Position(j + r2, i));
             }
         }
     }
 
     public void moveAsteroid() {
-        for (int i = 0; i < this.blockPositions.size(); i++) {
-            this.blockPositions.get(i).setY(blockPositions.get(i).getY() + 1);
+        for (Position p : this.blockPositions) {
+            p.setY(p.getY() + 1);
+
         }
     }
 }

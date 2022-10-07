@@ -25,6 +25,7 @@ public class Main {
         terminal.putCharacter(spaceship.playerChar);
         terminal.flush();
 
+
         List<Asteroid> asteroids = new ArrayList<>();
 //        for (int i = 0; i < asteroids.size(); i++) {
 //            Asteroid asteroid = new Asteroid();
@@ -44,13 +45,20 @@ public class Main {
                 if (counter % 500 == 0) {
                     asteroids.add(new Asteroid());
                 }
+
+
+
                 if(counter % speed == 0) {
                     for (Asteroid a : asteroids) {
-                        ArrayList<Position> oldPositions = new ArrayList<>(a.blockPositions);
+                        ArrayList<Position> oldPositions = new ArrayList<>();
+                        for (int i = 0; i < a.blockPositions.size(); i++) {
+                            oldPositions.add(new Position(a.blockPositions.get(i).getX(),a.blockPositions.get(i).getY()));
+                        }
                         a.moveAsteroid();
                         for (int i = 0; i < oldPositions.size(); i++) {
                             terminal.setCursorPosition(oldPositions.get(i).getX(), oldPositions.get(i).getY());
                             terminal.putCharacter(' ');
+
                         }
                         for (int i = 0; i < a.blockPositions.size(); i++) {
                             terminal.setCursorPosition(a.blockPositions.get(i).getX(), a.blockPositions.get(i).getY());
@@ -66,7 +74,19 @@ public class Main {
 
             spaceship.movePlayer(terminal, keyStroke);
             spaceship.fire(terminal, keyStroke, asteroids);
+
+
         }
+
+    }
+
+    private static boolean handleGameQuit(boolean continueReadingInput, Character c) throws Exception {
+        if (c == Character.valueOf('q')) {
+            continueReadingInput = false;
+            terminalBuilder().close();
+            System.out.println("quit");
+        }
+        return continueReadingInput;
     }
 
     static Terminal terminalBuilder() {
