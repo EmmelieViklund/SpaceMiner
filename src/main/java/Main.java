@@ -49,22 +49,28 @@ public class Main {
 
 
                 if(counter % speed == 0) {
-                    for (Asteroid a : asteroids) {
+                    for (int i = 0; i < asteroids.size(); i++) {
                         ArrayList<Position> oldPositions = new ArrayList<>();
-                        for (int i = 0; i < a.blockPositions.size(); i++) {
-                            oldPositions.add(new Position(a.blockPositions.get(i).getX(),a.blockPositions.get(i).getY()));
+                        for (int j = 0; j < asteroids.get(i).blockPositions.size(); j++) {
+                            oldPositions.add(new Position(asteroids.get(i).blockPositions.get(j).getX(),asteroids.get(i).blockPositions.get(j).getY()));
                         }
-                        a.moveAsteroid();
-                        for (int i = 0; i < oldPositions.size(); i++) {
-                            terminal.setCursorPosition(oldPositions.get(i).getX(), oldPositions.get(i).getY());
+                        asteroids.get(i).moveAsteroid();
+                        for (int j = 0; j < oldPositions.size(); j++) {
+                            terminal.setCursorPosition(oldPositions.get(j).getX(), oldPositions.get(j).getY());
                             terminal.putCharacter(' ');
 
                         }
-                        for (int i = 0; i < a.blockPositions.size(); i++) {
-                            terminal.setCursorPosition(a.blockPositions.get(i).getX(), a.blockPositions.get(i).getY());
-                            terminal.putCharacter(a.block);
+                        for (int j = 0; j < asteroids.get(i).blockPositions.size(); j++) {
+                            terminal.setCursorPosition(asteroids.get(i).blockPositions.get(j).getX(), asteroids.get(i).blockPositions.get(j).getY());
+                            terminal.putCharacter(asteroids.get(i).block);
                         }
-
+                        if (asteroids.get(i).blockPositions.get(0).getY() > 38) {
+                            for (int j = 0; j < asteroids.get(i).blockPositions.size(); j++) {
+                                terminal.setCursorPosition(asteroids.get(i).blockPositions.get(j).getX(), asteroids.get(i).blockPositions.get(j).getY());
+                                terminal.putCharacter(' ');
+                            }
+                            asteroids.remove(asteroids.get(i));
+                        }
                     }
                     terminal.flush();
                 }
