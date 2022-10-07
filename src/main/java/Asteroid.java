@@ -11,8 +11,7 @@ public class Asteroid {
 
     final char block = 9608;
     int size;
-
-    Position asteroidPosition;
+    ArrayList<Position> blockPositions;
 
     public int getSize() {
         return size;
@@ -24,10 +23,8 @@ public class Asteroid {
 
     public Asteroid() {
         Random random = new Random();
-        this.asteroidPosition = new Position(random.nextInt(0, 50), 0);
-
-        int i = random.nextInt(0, 10);
-        switch (i) {
+        int r1 = random.nextInt(0, 10);
+        switch (r1) {
             case 0, 1, 2 -> {
                 size = 2;
             }
@@ -41,18 +38,17 @@ public class Asteroid {
                 size = 5;
             }
         }
+        int r2 = random.nextInt(0, 60 - size);
+        for (int i = 0; i < size; i++) {
+            for (int j = 0 + r2; j < size + r2; j++) {
+                this.blockPositions.add(new Position(i, j));
+            }
+        }
     }
 
-    public void moveAsteroid(Terminal terminal, KeyStroke keyStroke) throws Exception {
-        int oldX = asteroidPosition.getX(), oldY = asteroidPosition.getY();
-
-
-        terminal.setCursorPosition(asteroidPosition.getX(), asteroidPosition.getY());
-        terminal.putCharacter(block);
-        terminal.setCursorPosition(oldX, oldY);
-        terminal.putCharacter(' ');
-        terminal.flush();
-
+    public void moveAsteroid() {
+        for (int i = 0; i < this.blockPositions.size(); i++) {
+            this.blockPositions.get(i).setY(blockPositions.get(i).getY() + 1);
+        }
     }
-
 }
